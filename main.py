@@ -14,11 +14,9 @@
 500, 502, 503, 504 - Server Errors (Not client-side)
 """
 import info
-import requests
 import streamlit as st
 import ptcg
 
-# new
 st. set_page_config(layout="wide")
 
 def main():

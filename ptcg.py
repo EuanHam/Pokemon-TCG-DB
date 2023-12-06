@@ -1,26 +1,19 @@
-import info
 import requests
-import streamlit as st
 
-
-def getInfo(pokemon_name, check, sorting):
+def getInfo(pokemon_name, check, sortingMethod):
     base_url = "https://api.pokemontcg.io/v2/cards"
-    # Creates parameters for the API request sourced from w3schools
     params = {'q': f'name:"{pokemon_name}"'}
 
-    # Make the get request to the API
     response = requests.get(base_url, params=params)
     
     if response.status_code == 200:
-        # get json data if there aren't any complications
         data = response.json()
-        data = pokemonLoop(data, check, sorting)
+        data = pokemonLoop(data, check, sortingMethod)
         return data
     else:
-        # else, fail message
         return "Failed to fetch data. Status code: {}".format(response.status_code)
     
-def pokemonLoop(data, check, sorting):
+def pokemonLoop(data, check, sortingMethod):
     list = []
     toAdd = ""
     infoList = data["data"]
@@ -42,7 +35,6 @@ def pokemonLoop(data, check, sorting):
             normalPrice = float(item["tcgplayer"]["prices"]["normal"]["market"])
         except:
             normalPrice = 0
-
         try:
             holofoilPrice = float(item["tcgplayer"]["prices"]["holofoil"]["market"])
         except:
@@ -54,9 +46,9 @@ def pokemonLoop(data, check, sorting):
             price = holofoilPrice
             toAdd = "{} - {} - {} - Market Holofoil Price: ${}".format(cardName, id, set, holofoilPrice)
         else:
-            if sorting == "Price Ascending":
+            if sortingMethod == "Price Ascending":
                 price = 100000000000
-            elif sorting == "Price Descending":
+            elif sortingMethod == "Price Descending":
                 price = -1
             toAdd = "{} - {} - {} - Market Price: Not Available on TCGPlayer".format(cardName, id, set)
         if check:
@@ -64,13 +56,17 @@ def pokemonLoop(data, check, sorting):
                 list.append((toAdd, imageURL, release, price))
         else:
             list.append((toAdd, imageURL, release, price))
-    if sorting == "Oldest to Newest":
+    sort(list, sortingMethod)
+    return list
+
+def sort(list, sortingMethod):
+    if sortingMethod == "Oldest to Newest":
         list.sort(key = lambda x: x[2])
-    if sorting == "Newest to Oldest":
-        list.sort(key = lambda x: x[2])
+    if sortingMethod == "Newest to Oldest":
+        list.sort(key = lambda x: x[2], reverse = True)
         list.reverse()
-    if sorting == "Price Ascending":
+    if sortingMethod == "Price Ascending":
         list.sort(key = lambda x: float(x[3]) if x[3] != 0 else 0)
-    elif sorting == "Price Descending":
+    elif sortingMethod == "Price Descending":
         list.sort(key = lambda x: float(-1 * x[3]) if x[3] != 0 else 0)
     return list
