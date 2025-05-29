@@ -1,9 +1,3 @@
-# to do - have default image for pokemon card if the back if just showing because it's too big rn
-# sort by price ascending and descending
-# check rubric for other user input
-# write description and info for side bar
-
-# http status codes
 """
 200 - OK
 400 - Bad Request (Incorrect query string parameter)
@@ -25,9 +19,7 @@ def main():
     st.write("------------------")
 
     # Instructions for user
-    # new
     pokemon_name = st.text_input("Enter the Pokémon Card name:" + "\n" + "e.g. Try Pokémon like Garchomp or trainers like Cynthia!")
-    # new
     sorting = st.selectbox(
         'Label',
         ('Price Descending', 'Price Ascending', 'Oldest to Newest', 'Newest to Oldest'),
@@ -36,11 +28,8 @@ def main():
         placeholder = "Sort By ...",
     # implement stuff from: https://docs.streamlit.io/library/api-reference/widgets/st.selectbox
     )
-    # new
     costCheck = st.checkbox('Only include cards with a price')
     enterDetection = st.text_input("\n")
-    # new
-    # new
     if st.button("Search") or enterDetection:
         if pokemon_name:
             # gets that
@@ -69,17 +58,16 @@ def main():
 
 if __name__ == "__main__":
     main()
-# Ripped this part from the tutorial
+
 def side():
     file = open("description.txt", "r")
     description = file.read()
     st.sidebar.header("About the Program")
     st.sidebar.write(description)
-    st.sidebar.header("ReadMe (Not Implemented Yet)")
-    linkedin_link = f'<a href="{"https://github.com/EuanHam/Pokemon-TCG-DB"}"><img src = "{info.linkedin_image_url}" alt = "LinkedIn" width = "75" height = "75"></a>'
+    linkedin_link = f'<a href="{"https://linkedin.com/in/euanham"}"><img src = "{info.linkedin_image_url}" alt = "LinkedIn" width = "75" height = "75"></a>'
     st.sidebar.markdown(linkedin_link, unsafe_allow_html = True)
     github_link = f'<a href="{info.my_github_url}"><img src = "{info.github_image_url}" alt = "GitHub" width = "75" height = "75"></a>'
     st.sidebar.markdown(github_link, unsafe_allow_html = True)
-    st.sidebar.text("Email:" + "\n" + "firstLast@gmail.com")
+    st.sidebar.text("Email:" + "\n" + info.my_email_address)
 
 side()

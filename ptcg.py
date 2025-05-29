@@ -122,11 +122,9 @@ def side():
     description = file.read()
     st.sidebar.header("About the Program")
     st.sidebar.write(description)
-    st.sidebar.header("ReadMe (Not Implemented Yet)")
-    linkedin_link = f'<a href="{"https://github.com/EuanHam/Pokemon-TCG-DB"}"><img src = "{info.linkedin_image_url}" alt = "LinkedIn" width = "75" height = "75"></a>'
-    st.sidebar.markdown(linkedin_link, unsafe_allow_html = True)
+
     github_link = f'<a href="{info.my_github_url}"><img src = "{info.github_image_url}" alt = "GitHub" width = "75" height = "75"></a>'
     st.sidebar.markdown(github_link, unsafe_allow_html = True)
-    st.sidebar.text("Email:" + "\n" + "firstLast@gmail.com")
+    st.sidebar.text("Email:" + "\n" + info.my_email_address)
 
 side()
