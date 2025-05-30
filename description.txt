@@ -1,5 +1,5 @@
 The Pokémon Trading Card Game Database or PTCGDb is a repository to search for Pokémon cards from nearly all the sets in existence. This excludes one-of-a-kind cards, instead including cards from standard sets and other promotions. 
 
-This app was developed by Euan Ham using the Streamlit (1.45.1) library in Python 3.9.6 and requires Numpy version <2.
+This app was developed by Euan Ham using the Streamlit (1.45.1) library in Python 3.9.6 and requires Numpy 1.24.6.
 
 Repo:
